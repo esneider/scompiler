@@ -1,0 +1,82 @@
+
+Compilador de S (traduce a C, y llama a gcc)
+--------------------------------------------
+
+Viene con varias macros básicas para usar (ubicadas en s_source/simple):
+
+ * and(n, m)   - logical and
+ * divide(n,m) - integer division
+ * equal(n,m)  - equal
+ * identity(n) - identity
+ * lesseq(n,m) - less or equal
+ * less(n,m)   - less than
+ * log2(n)     - integer base-2 logarithm
+ * max(n,m)    - maximum
+ * min(n,m)    - minimum
+ * minus(n,m)  - substraction
+ * mod(n,m)    - integer modulus
+ * moreeq(n,m) - more or equal
+ * more(n,m)   - more than
+ * nequal(n,m) - not equal
+ * not(n)      - logical negation
+ * or(n,m)     - logical or
+ * plus(n,m)   - addition
+ * power(n,m)  - exponentiation
+ * sqrt(n)     - square root
+ * times(n,m)  - multiplication
+ * xor(n,m)    - logical exclusive or
+
+Y algunos ejemplos (ubicados en s_source):
+
+ * fibrec(n)  - recursive version of the n-th fibonacci's number
+ * gcd(n,m)   - greatest common divisor
+ * isprime(n) - primality checker
+
+
+###############################
+
+
+Los archivos .s son de la forma:
+
+
+// valen los comentarios con doble barra
+
+X4 <- X4 + 1 // upper o lower case
+X1000 <- X1000 - 1
+
+[G54] Z4 <- Z4 + 1
+[A1] [w5000] if X1000 != 0 goto [G54]
+if Y != 0 goto [w5000]
+
+// uso de macros:
+x1 <- mi_macro( 5, 8, Y, Z4, x1, mi_macro2( )  )
+
+// se pueden pasar los parámetros que se quieran
+if mi_macro( mi_macro2( 5 ) ) != 0 goto [f123]
+
+// los macros se pueden usar solo en asignaciones e ifs
+
+// busca automáticamente los archivos en la carpeta s_source, y en
+// s_source/basic
+
+// para usar archivos de macros en otras carpetas hay
+// 2 opciones:
+//   * modificar el código del compilador (agregarle a la variable dirs
+//     ";mi_carpeta;" )
+//   * o hacer:
+
+x1 <- mi_carpeta/mi_macro( 1, 2, mi_otra_carpeta/mi_macro2() )
+
+
+###############################
+
+
+También se pueden usar las siguientes extensiones
+
+{X4} ó {Y}  - hace un printf de la variable cada vez que pasa por ese lugar
+{wait}      - espera a que apretes una tecla para continuar (getchar();)
+{debug}     - cada vez que entra a un macro hace un printf avisando en qué macro
+              está. Puede estar en cualquier parte del código
+{inline}    - hace que la función sea inline en C (para eficiencia en funciones
+              chicas y muy usadas)
+
